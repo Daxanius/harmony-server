@@ -1,0 +1,15 @@
+[package]
+name = "harmony-core"
+version = "0.1.0"
+authors = ["Daxanius"]
+edition = "2021"
+
+[dependencies]
+harmony-data = { path = "../harmony-data" }
+
+chrono = { version = "0.4", features = ["serde"] }
+dotenvy = "0.15"
+serde = "1.0"
+regex = "1.10"
+bcrypt = "0.15"
+nanoid = "0.4.0"
