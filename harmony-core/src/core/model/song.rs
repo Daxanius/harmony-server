@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::result::ServerError;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Song {
     pub id: i32,
     pub name: String,

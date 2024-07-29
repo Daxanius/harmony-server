@@ -13,7 +13,7 @@ struct Claims {
     exp: usize, // Expiration time
 }
 
-pub fn get_jwt_token(user: User) -> Result<String, ApiResponse> {
+pub fn get_jwt_token(user: &User) -> Result<String, ApiResponse> {
     let expiration = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards")
@@ -21,7 +21,7 @@ pub fn get_jwt_token(user: User) -> Result<String, ApiResponse> {
         + environment::get_token_time_valid(); // 1 week expiration
 
     let claims = Claims {
-        user,
+        user: user.clone(),
         exp: expiration as usize,
     };
 

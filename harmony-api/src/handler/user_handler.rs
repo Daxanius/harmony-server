@@ -2,7 +2,9 @@ use harmony_core::core::model::user::User;
 use rocket::{get, post, serde::json::Json};
 
 use crate::{
-    api_response::ApiResponse, guards::token_auth::TokenAuth, model::new_user::NewUser,
+    api_response::ApiResponse,
+    guards::token_auth::TokenAuth,
+    model::{login_response::LoginResponse, new_user::NewUser},
     utils::auth_util,
 };
 
@@ -30,12 +32,12 @@ pub fn find_user_handler(
 }
 
 #[post("/login", format = "application/json", data = "<user>")]
-pub fn login_user_handler(user: Json<NewUser>) -> Result<String, ApiResponse> {
+pub fn login_user_handler(user: Json<NewUser>) -> Result<Json<LoginResponse>, ApiResponse> {
     let template = user.0.to_template()?;
     let user_id = template.verify_auth().map_err(ApiResponse::from)?;
     let user = User::get_by_id(user_id).map_err(ApiResponse::from)?;
-    let token = auth_util::get_jwt_token(user)?;
-    Ok(token)
+    let token = auth_util::get_jwt_token(&user)?;
+    Ok(Json(LoginResponse { token, user }))
 }
 
 #[post("/", format = "application/json", data = "<user>")]
