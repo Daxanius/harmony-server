@@ -77,24 +77,12 @@ impl From<AuthError> for ApiResponse {
 impl From<ValidationError> for ApiResponse {
     fn from(error: ValidationError) -> Self {
         match error {
-            ValidationError::InvalidUserName(msg) => {
-                ApiResponse::BadRequest(format!("Invalid username: {msg}"))
-            }
-            ValidationError::InvalidPassword(msg) => {
-                ApiResponse::BadRequest(format!("Invalid password: {msg}"))
-            }
-            ValidationError::InvalidEmail(msg) => {
-                ApiResponse::BadRequest(format!("Invalid email: {msg}"))
-            }
-            ValidationError::InvalidFilePath(msg) => {
-                ApiResponse::BadRequest(format!("Invalid file path: {msg}"))
-            }
-            ValidationError::InvalidYouTubeUrl(msg) => {
-                ApiResponse::BadRequest(format!("Invalid YouTube URL: {msg}"))
-            }
-            ValidationError::InvalidName(msg) => {
-                ApiResponse::BadRequest(format!("Invalid name: {msg}"))
-            }
+            ValidationError::InvalidUserName(msg)
+            | ValidationError::InvalidPassword(msg)
+            | ValidationError::InvalidEmail(msg)
+            | ValidationError::InvalidFilePath(msg)
+            | ValidationError::InvalidYouTubeUrl(msg)
+            | ValidationError::InvalidName(msg) => ApiResponse::BadRequest(msg),
             _ => ApiResponse::InternalServerError("Failed".into()),
         }
     }
