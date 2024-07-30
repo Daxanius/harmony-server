@@ -74,11 +74,13 @@ impl UserTemplate {
         };
 
         // Verify the provided password against the stored hash
-        if verify(self.password.value(), &user_model.hash).is_err() {
-            return Err(AuthError::InvalidPassword);
-        };
-
-        Ok(user_model.id)
+        match verify(self.password.value(), &user_model.hash) {
+            Ok(true) => Ok(user_model.id),                // Password matches
+            Ok(false) => Err(AuthError::InvalidPassword), // Password does not match
+            Err(_) => Err(AuthError::Database(
+                "Something went wrong during authentication".to_string(),
+            )),
+        }
     }
 
     pub fn create(&self) -> Result<User, ServerError> {
