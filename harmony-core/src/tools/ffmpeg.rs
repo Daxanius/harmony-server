@@ -9,11 +9,11 @@ pub fn convert_to_dfpwm(file: &str, output_file: &str) -> Result<(), ServerError
             file,
             "-ac",
             "1",
+            "-ar",
+            "48k",
             "-c:a",
             "dfpwm",
             output_file,
-            "-ar",
-            "48k",
         ])
         .status()
         .expect("Failed to execute ffmpeg command");
