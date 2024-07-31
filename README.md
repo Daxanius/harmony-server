@@ -22,7 +22,7 @@ $ sudo pacman -S postgresql
 
 Diesel
 ```sh
-$ cargo install diesel_cli
+$ cargo install diesel_cli --no-default-features --features postgres
 ```
 
 FFmpeg
