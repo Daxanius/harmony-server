@@ -7,7 +7,7 @@ The following installation guide is written with arch linux in mind, please look
 ### Install Tools
 Git
 ```sh
-$ pacman -S git
+$ sudo pacman -S git
 ```
 
 The Rust toolchain
@@ -15,24 +15,24 @@ The Rust toolchain
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
+PostgreSQL
+```sh
+$ sudo pacman -S postgresql
+```
+
 Diesel
 ```sh
 $ cargo install diesel_cli
 ```
 
-PostgreSQL
-```sh
-$ pacman -S postgresql
-```
-
 FFmpeg
 ```sh
-$ pacman -S ffmpeg
+$ sudo pacman -S ffmpeg
 ```
 
 yt-dlp
 ```sh
-$ pacman -S yt-dlp
+$ sudo pacman -S yt-dlp
 ```
 
 ### Setup database
