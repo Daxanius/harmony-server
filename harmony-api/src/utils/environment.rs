@@ -30,3 +30,9 @@ pub fn get_stream_lifetime() -> u64 {
         .parse::<u64>()
         .expect("STREAM_LIFETIME must be a valid positive number")
 }
+
+#[must_use]
+pub fn get_version() -> String {
+    init_environment();
+    env::var("CARGO_PKG_VERSION").expect("CARGO_PKG_VERSION is not set.")
+}

@@ -2,7 +2,7 @@
 extern crate rocket;
 use harmony_api::error_response;
 use harmony_api::handler::stream_handler::{self, stream_cleanup_task};
-use harmony_api::handler::{playlist_handler, song_handler, user_handler};
+use harmony_api::handler::{playlist_handler, song_handler, user_handler, version_handler};
 use harmony_api::utils::states::StreamState;
 
 #[rocket::main]
@@ -15,8 +15,9 @@ async fn main() {
     let _rocket = rocket::build()
         .manage(stream_state)
         .register("/", catchers![error_response::catch_all])
+        .mount("/", routes![version_handler::get_version_handler])
         .mount(
-            "/",
+            "/song",
             routes![
                 song_handler::list_song_handler,
                 song_handler::get_song_handler,

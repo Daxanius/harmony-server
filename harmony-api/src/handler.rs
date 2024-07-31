@@ -9,3 +9,6 @@ pub mod song_handler;
 
 #[allow(clippy::module_name_repetitions)]
 pub mod stream_handler;
+
+#[allow(clippy::module_name_repetitions)]
+pub mod version_handler;
