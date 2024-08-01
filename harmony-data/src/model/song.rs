@@ -84,7 +84,7 @@ impl SongModel {
     /// Find a song by user or author
     /// # Errors
     /// When the database operation fails
-    pub fn find(query: &String) -> Result<Vec<SongModel>, crate::result::Error> {
+    pub fn find(query: &str) -> Result<Vec<SongModel>, crate::result::Error> {
         let connection: &mut PgConnection = &mut crate::establish_connection();
 
         // Perform case-insensitive search

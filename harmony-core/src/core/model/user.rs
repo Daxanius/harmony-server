@@ -32,7 +32,7 @@ impl User {
         Ok(Self::from_model(&user))
     }
 
-    pub fn find_by_name(name: &String) -> Result<Vec<Self>, ServerError> {
+    pub fn find_by_name(name: &str) -> Result<Vec<Self>, ServerError> {
         let users = match UserModel::find(name) {
             Ok(users) => users,
             Err(error) => match error {

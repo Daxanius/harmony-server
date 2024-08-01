@@ -87,3 +87,9 @@ impl From<ValidationError> for ApiResponse {
         }
     }
 }
+
+impl From<tokio::task::JoinError> for ApiResponse {
+    fn from(error: tokio::task::JoinError) -> Self {
+        ApiResponse::InternalServerError(format!("Task failed: {}", error))
+    }
+}

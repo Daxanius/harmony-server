@@ -1,9 +1,9 @@
 #[macro_use]
 extern crate rocket;
 use harmony_api::error_response;
-use harmony_api::handler::stream_handler::{self, stream_cleanup_task};
+use harmony_api::handler::stream_handler;
 use harmony_api::handler::{playlist_handler, song_handler, user_handler, version_handler};
-use harmony_api::utils::states::StreamState;
+use harmony_api::utils::states::{stream_cleanup_task, StreamState};
 
 #[rocket::main]
 async fn main() {

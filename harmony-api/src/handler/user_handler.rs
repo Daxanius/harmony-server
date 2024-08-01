@@ -23,10 +23,7 @@ pub fn get_user_handler(_auth: TokenAuth, user_id: i32) -> Result<Json<User>, Ap
 }
 
 #[get("/name/<username>")]
-pub fn find_user_handler(
-    _auth: TokenAuth,
-    username: String,
-) -> Result<Json<Vec<User>>, ApiResponse> {
+pub fn find_user_handler(_auth: TokenAuth, username: &str) -> Result<Json<Vec<User>>, ApiResponse> {
     let users: Vec<User> = User::find_by_name(&username).map_err(ApiResponse::from)?;
     Ok(Json(users))
 }

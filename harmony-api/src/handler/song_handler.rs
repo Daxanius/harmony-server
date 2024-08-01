@@ -1,6 +1,7 @@
 use harmony_core::core::model::song::Song;
 // use application::post::read;
 use rocket::{get, post, serde::json::Json};
+use tokio::task;
 
 use crate::{api_response::ApiResponse, guards::token_auth::TokenAuth, model::new_song::NewSong};
 
@@ -19,17 +20,23 @@ pub fn get_song_handler(_auth: TokenAuth, song_id: i32) -> Result<Json<Song>, Ap
 }
 
 #[get("/find/<query>")]
-pub fn find_song_handler(_auth: TokenAuth, query: String) -> Result<Json<Vec<Song>>, ApiResponse> {
+pub fn find_song_handler(_auth: TokenAuth, query: &str) -> Result<Json<Vec<Song>>, ApiResponse> {
     let songs: Vec<Song> = Song::find(&query).map_err(ApiResponse::from)?;
     Ok(Json(songs))
 }
 
 #[post("/", format = "application/json", data = "<song>")]
-pub fn create_song_handler(
+pub async fn create_song_handler(
     auth: TokenAuth,
     song: Json<NewSong>,
 ) -> Result<Json<Song>, ApiResponse> {
     let template = song.0.to_template(auth.user.id)?;
-    let song = template.create().map_err(ApiResponse::from)?;
+
+    // Spawn a blocking task for the create operation
+    let blocking_task = task::spawn_blocking(move || template.create());
+
+    // Await the result of the blocking task
+    let song = blocking_task.await.map_err(ApiResponse::from)??;
+
     Ok(Json(song))
 }

@@ -66,7 +66,7 @@ pub fn remove_song_from_playlist_handler(
 #[get("/name/<name>")]
 pub fn find_playlist_handler(
     auth: TokenAuth,
-    name: String,
+    name: &str,
 ) -> Result<Json<Vec<Playlist>>, ApiResponse> {
     let playlists: Vec<Playlist> =
         Playlist::find_by_name(&name, auth.user.id).map_err(ApiResponse::from)?;

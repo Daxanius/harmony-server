@@ -41,10 +41,7 @@ impl Playlist {
         Ok(Self::from_model(&user))
     }
 
-    pub fn find_by_name(
-        playlist_name: &String,
-        calling_user: i32,
-    ) -> Result<Vec<Self>, ServerError> {
+    pub fn find_by_name(playlist_name: &str, calling_user: i32) -> Result<Vec<Self>, ServerError> {
         let playlists = match PlaylistModel::find_by_name(playlist_name, calling_user) {
             Ok(playlists) => playlists,
             Err(error) => match error {

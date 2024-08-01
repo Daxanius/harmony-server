@@ -24,7 +24,7 @@ impl Song {
         Ok(Self::from_models(&songs))
     }
 
-    pub fn find(query: &String) -> Result<Vec<Self>, ServerError> {
+    pub fn find(query: &str) -> Result<Vec<Self>, ServerError> {
         let Ok(songs) = SongModel::find(query) else {
             return Err(ServerError::Database("Failed to get songs".to_string()));
         };
