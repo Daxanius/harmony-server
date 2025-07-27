@@ -14,7 +14,7 @@ pub enum ApiResponse {
     Unauthorized(String),
 }
 
-impl<'r> Responder<'r, 'static> for ApiResponse {
+impl Responder<'_, 'static> for ApiResponse {
     fn respond_to(self, _request: &Request<'_>) -> Result<Response<'static>, Status> {
         match self {
             ApiResponse::BadRequest(message) => Response::build()
